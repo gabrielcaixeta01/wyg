@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { CheckCircle2, ArrowRight, Info } from "lucide-react";
+import { CheckCircle2, Info } from "lucide-react";
 
 const INCLUDED = [
   "Painel de gestão com dados reais",
@@ -88,7 +88,7 @@ export default function Pricing() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-3 mb-7 glass-card rounded-xl p-4">
+              <div className="flex items-start gap-3 mb-2 glass-card rounded-xl p-4">
                 <Info size={15} className="text-purple-light shrink-0 mt-0.5" />
                 <p className="text-lavender text-xs leading-relaxed">
                   A cobrança está diretamente ligada ao que é registrado no painel via CPF.
@@ -96,15 +96,6 @@ export default function Pricing() {
                 </p>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.03, boxShadow: "0 0 40px rgba(70,34,165,0.7)" }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" })}
-                className="w-full flex items-center justify-center gap-2 bg-purple text-white font-bold py-4 rounded-xl btn-shimmer glow-purple transition-all duration-300 cursor-pointer text-base"
-              >
-                Cadastrar gratuitamente
-                <ArrowRight size={18} />
-              </motion.button>
             </div>
           </motion.div>
 

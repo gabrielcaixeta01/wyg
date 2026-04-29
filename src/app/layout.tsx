@@ -11,7 +11,7 @@ const geist = Geist({
 export const metadata: Metadata = {
   title: "WYG — Where You Going | Conecte seu bar a quem quer sair agora",
   description:
-    "O WYG conecta bares a pessoas que estão decidindo onde ir em tempo real. Mais visibilidade, mais clientes, mais recorrência. Comece grátis.",
+    "A WYG conecta bares a pessoas que estão decidindo onde ir em tempo real. Mais visibilidade, mais clientes, mais recorrência. Comece grátis.",
   keywords: ["wyg", "ticketeria", "bar", "festa", "clientes", "fidelização"],
   openGraph: {
     title: "WYG — Where You Going",

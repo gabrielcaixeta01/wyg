@@ -14,27 +14,6 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-const TIERS_CTA = [
-  {
-    label: "Meses 1 – 3",
-    color: "bg-green-500/15 border-green-500/25",
-    accent: "text-green-400",
-    desc: "Grátis para cadastrar, configurar e aparecer no app.",
-  },
-  {
-    label: "A partir do mês 4",
-    color: "bg-purple/15 border-purple/25",
-    accent: "text-purple-light",
-    desc: "Comissão de 4% a 12% sobre consumo via CPF, negociada previamente.",
-  },
-  {
-    label: "Sempre incluso",
-    color: "bg-indigo-500/15 border-indigo-500/25",
-    accent: "text-indigo-400",
-    desc: "Painel, pontos, avaliações e suporte — sem custo extra.",
-  },
-];
-
 export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -53,86 +32,36 @@ export default function Contact() {
       <div className="orb w-150 h-150 bg-purple/25 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="inline-block glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5"
           >
-            Comece agora
+            Cadastro
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-5"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4"
           >
-            3 meses grátis
+            Cadastre seu bar
             <br />
-            <span className="gradient-text">para começar.</span>
+            <span className="gradient-text">gratuitamente.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lavender text-lg max-w-xl mx-auto leading-relaxed mb-8"
+            className="text-lavender text-lg max-w-md mx-auto leading-relaxed"
           >
-            Cadastre seu bar, configure o painel e comece a aparecer para os usuários.
-            A comissão só começa após o período de cortesia.
+            Nossa equipe entra em contato para configurar tudo.
           </motion.p>
-
-          {/* Top CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-          >
-            <a
-              href="https://tr.ee/VtU_LN2Jfm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 glass-card text-white font-semibold px-7 py-3.5 rounded-xl text-sm hover:border-purple/40 transition-all duration-200"
-            >
-              Já tenho conta
-              <ExternalLink size={14} />
-            </a>
-            <motion.button
-              whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(70,34,165,0.7)" }}
-              whileTap={{ scale: 0.96 }}
-              onClick={() => document.querySelector("#form")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 bg-purple text-white font-bold px-7 py-3.5 rounded-xl text-sm btn-shimmer glow-purple transition-all duration-300 cursor-pointer"
-            >
-              Cadastrar gratuitamente
-              <ArrowRight size={16} />
-            </motion.button>
-          </motion.div>
-
-          {/* 3 tier cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid sm:grid-cols-3 gap-4 mb-16 max-w-3xl mx-auto"
-          >
-            {TIERS_CTA.map((tier, i) => (
-              <motion.div
-                key={tier.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.45 + i * 0.1 }}
-                className={`glass-card ${tier.color} rounded-2xl p-5 text-left border`}
-              >
-                <p className={`text-xs font-bold uppercase tracking-wider mb-2 ${tier.accent}`}>{tier.label}</p>
-                <p className="text-white/80 text-sm leading-relaxed">{tier.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
 
-        <div id="form" className="grid lg:grid-cols-2 gap-10 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
 
           {/* ── Left: Form ── */}
           <motion.div
@@ -154,7 +83,7 @@ export default function Contact() {
                   <h3 className="text-white font-black text-2xl mb-2">Cadastro enviado!</h3>
                   <p className="text-lavender text-base leading-relaxed">
                     Nossa equipe vai entrar em contato em breve pelo e-mail ou WhatsApp
-                    informados. Prepare-se para aparecer no WYG.
+                    informados. Prepare-se para aparecer na WYG.
                   </p>
                 </div>
               </div>
@@ -218,7 +147,7 @@ export default function Contact() {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(70,34,165,0.7)" }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(16,64,200,0.7)" }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 bg-purple text-white font-bold py-4 rounded-xl btn-shimmer glow-purple transition-all duration-300 cursor-pointer text-base mt-1"
@@ -228,7 +157,6 @@ export default function Contact() {
                 </motion.button>
 
                 <p className="text-muted text-xs text-center">
-                  Ao cadastrar, você concorda com nossos termos de uso.
                   Seus dados nunca serão compartilhados.
                 </p>
               </form>
@@ -240,7 +168,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-4"
           >
             <div className="glass-card rounded-2xl p-6">
               <p className="text-white font-bold text-base mb-4">Fale com a gente</p>
@@ -286,6 +214,20 @@ export default function Contact() {
                   </div>
                 </a>
               </div>
+            </div>
+
+            <div className="text-center pt-2">
+              <p className="text-muted text-sm">
+                Já tem uma conta?{" "}
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-light font-semibold hover:text-white transition-colors inline-flex items-center gap-1"
+                >
+                  Fazer login <ExternalLink size={12} />
+                </a>
+              </p>
             </div>
           </motion.div>
         </div>

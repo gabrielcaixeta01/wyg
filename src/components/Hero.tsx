@@ -108,7 +108,7 @@ export default function Hero() {
               custom={2}
               className="text-lavender text-lg sm:text-xl leading-relaxed mb-10 max-w-lg"
             >
-              O WYG mostra seu bar em{" "}
+              A WYG mostra seu bar em{" "}
               <strong className="text-white">tempo real</strong> para pessoas que estão
               decidindo onde ir — com{" "}
               <strong className="text-white">lotação ao vivo</strong>, sistema de pontos e
@@ -146,17 +146,6 @@ export default function Hero() {
                 Entender o produto
               </motion.button>
             </motion.div>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={4}
-              className="text-muted text-sm flex items-center gap-2"
-            >
-              <span className="w-4 h-4 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center text-green-400 text-xs">✓</span>
-              Grátis pelos primeiros 3 meses. Sem cartão.
-            </motion.p>
           </div>
 
           {/* ── Right: iPhone Mockup ── */}
@@ -245,10 +234,6 @@ export default function Hero() {
                         <MapPin size={8} />
                         Asa Norte · Brasília, DF
                       </p>
-                    </div>
-                    <div className="flex items-center gap-1 bg-green-500/15 border border-green-500/30 px-2 py-1 rounded-full">
-                      <span className="live-dot w-1.5 h-1.5 rounded-full bg-green-400 block" />
-                      <span className="text-green-400 text-[10px] font-semibold">Ao vivo</span>
                     </div>
                   </div>
 

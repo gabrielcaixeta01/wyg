@@ -8,17 +8,17 @@ const STEPS = [
   {
     icon: Hash,
     title: "Registro simples",
-    desc: "O CPF é inserido após o pagamento e os pontos são creditados automaticamente. Sem ficha, sem cartão fidelidade.",
+    desc: "CPF inserido após o pagamento — pontos creditados automaticamente.",
   },
   {
     icon: QrCode,
     title: "Resgate por código",
-    desc: "O cliente gera um código no app e o bar valida no painel — os pontos são debitados na hora. Zero burocracia.",
+    desc: "O cliente gera um código no app e o bar valida no painel. Pontos debitados na hora.",
   },
   {
     icon: TrendingUp,
     title: "Incentivo ao ticket maior",
-    desc: "Gastos maiores acumulam pontos mais rápido. Quanto mais o cliente consome, mais rápido chega ao benefício — e mais motivo tem para voltar.",
+    desc: "Gastos maiores acumulam pontos mais rápido, criando incentivo natural para consumir mais.",
   },
 ];
 
@@ -58,7 +58,7 @@ export default function PointsSystem() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-black leading-tight tracking-tight mb-5"
+              className="text-4xl sm:text-5xl font-black leading-tight tracking-tight mb-4"
             >
               Clientes que gastam mais,{" "}
               <span className="gradient-text">voltam mais.</span>
@@ -68,14 +68,13 @@ export default function PointsSystem() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-lavender text-lg leading-relaxed mb-10"
+              className="text-lavender leading-relaxed mb-8"
             >
-              O bar registra o consumo pelo CPF do cliente. O cliente acumula pontos para
-              trocar por benefícios que você mesmo define. Quanto mais consome, mais rápido
-              acumula — e mais incentivo tem para voltar.
+              O bar registra o consumo pelo CPF. O cliente acumula pontos e troca por
+              benefícios que você mesmo define.
             </motion.p>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               {STEPS.map((step, i) => {
                 const Icon = step.icon;
                 return (
@@ -86,11 +85,11 @@ export default function PointsSystem() {
                     transition={{ duration: 0.6, delay: 0.3 + i * 0.12 }}
                     className="flex gap-4 group"
                   >
-                    <div className="w-11 h-11 rounded-xl bg-purple/20 border border-purple/40 flex items-center justify-center text-purple-light shrink-0 group-hover:bg-purple/40 transition-colors duration-300">
-                      <Icon size={18} />
+                    <div className="w-10 h-10 rounded-xl bg-purple/20 border border-purple/40 flex items-center justify-center text-purple-light shrink-0 group-hover:bg-purple/40 transition-colors duration-300">
+                      <Icon size={16} />
                     </div>
                     <div>
-                      <h3 className="text-white font-bold text-base mb-1">{step.title}</h3>
+                      <h3 className="text-white font-bold text-sm mb-0.5">{step.title}</h3>
                       <p className="text-muted text-sm leading-relaxed">{step.desc}</p>
                     </div>
                   </motion.div>
@@ -100,17 +99,17 @@ export default function PointsSystem() {
           </div>
 
           {/* ── Right: Conversion table + example ── */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
               className="glass-card rounded-2xl p-6 border-gradient"
             >
-              <p className="text-white font-bold text-base mb-1">Conversão de pontos</p>
-              <p className="text-muted text-xs mb-5">Quanto maior o consumo, maior o percentual em pontos</p>
+              <p className="text-white font-bold text-sm mb-1">Conversão de pontos</p>
+              <p className="text-muted text-xs mb-4">Maior consumo = maior percentual</p>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3.5">
                 {TIERS.map((tier, i) => (
                   <motion.div
                     key={tier.range}
@@ -118,11 +117,11 @@ export default function PointsSystem() {
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 0.4 + i * 0.1 }}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-1">
                       <span className="text-lavender text-xs">{tier.range}</span>
-                      <span className="text-white font-bold text-sm">{tier.pct} em pontos</span>
+                      <span className="text-white font-bold text-xs">{tier.pct}</span>
                     </div>
-                    <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full rounded-full bg-linear-to-r from-purple to-violet-400"
                         initial={{ width: 0 }}
@@ -135,54 +134,30 @@ export default function PointsSystem() {
               </div>
             </motion.div>
 
-            {/* Example */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.5 }}
+              transition={{ duration: 0.7, delay: 0.45 }}
               className="glass-card-purple rounded-2xl p-6 border-gradient relative overflow-hidden"
             >
-              <div className="absolute right-0 top-0 w-48 h-48 bg-purple/20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute right-0 top-0 w-40 h-40 bg-purple/20 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10">
-                <p className="text-purple-light text-xs font-bold uppercase tracking-widest mb-3">Exemplo prático</p>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="glass-card rounded-xl px-4 py-3 text-center">
-                    <p className="text-white font-black text-2xl">R$120</p>
-                    <p className="text-muted text-xs mt-0.5">consumido</p>
+                <p className="text-purple-light text-xs font-bold uppercase tracking-widest mb-3">Exemplo</p>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="glass-card rounded-xl px-4 py-2.5 text-center">
+                    <p className="text-white font-black text-xl">R$120</p>
+                    <p className="text-muted text-xs">consumido</p>
                   </div>
-                  <div className="text-lavender text-xl">→</div>
-                  <div className="glass-card rounded-xl px-4 py-3 text-center">
-                    <p className="text-white font-black text-2xl">12.000</p>
-                    <p className="text-muted text-xs mt-0.5">pontos (10%)</p>
+                  <span className="text-lavender text-lg">→</span>
+                  <div className="glass-card rounded-xl px-4 py-2.5 text-center">
+                    <p className="text-white font-black text-xl">12.000</p>
+                    <p className="text-muted text-xs">pontos (10%)</p>
                   </div>
                 </div>
                 <p className="text-lavender text-sm leading-relaxed">
-                  Na próxima visita, o cliente pode trocar os pontos por um benefício que você
-                  mesmo configurou — um drink, desconto ou entrada.
+                  Na próxima visita, o cliente troca por um drink, desconto ou entrada — o que você configurou.
                 </p>
               </div>
-            </motion.div>
-
-            {/* Progress bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.65 }}
-              className="glass-card rounded-2xl p-6"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-white font-semibold text-sm">Pontos acumulados</span>
-                <span className="text-purple-light font-black text-sm">12.000 / 15.000</span>
-              </div>
-              <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full bg-linear-to-r from-purple to-violet-400 glow-purple-sm"
-                  initial={{ width: 0 }}
-                  animate={inView ? { width: "80%" } : { width: 0 }}
-                  transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" as const }}
-                />
-              </div>
-              <p className="text-muted text-xs mt-2">3.000 pontos para o próximo benefício 🍺</p>
             </motion.div>
           </div>
         </div>

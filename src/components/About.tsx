@@ -44,7 +44,7 @@ export default function About() {
           className="flex justify-center mb-5"
         >
           <span className="glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full">
-            O que é o WYG
+            O que é a WYG
           </span>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function About() {
           animate={inView ? "visible" : "hidden"}
           className="text-4xl sm:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight mb-6"
         >
-          O que é o WYG?
+          O que é a WYG?
         </motion.h2>
 
         <motion.p
@@ -99,7 +99,7 @@ export default function About() {
           <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-purple-light text-sm font-bold uppercase tracking-widest mb-4">
-                Como o WYG pensa
+                Como a WYG pensa
               </p>
               <h3 className="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight">
                 Não é anúncio.
@@ -108,7 +108,7 @@ export default function About() {
                 <span className="gradient-text">momento certo.</span>
               </h3>
               <p className="text-lavender leading-relaxed mb-6">
-                O WYG só aparece para pessoas{" "}
+                A WYG só aparece para pessoas{" "}
                 <strong className="text-white">que já decidiram sair</strong> e estão
                 próximas do seu bar agora. É público qualificado, convertendo em tempo real.
               </p>

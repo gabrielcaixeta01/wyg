@@ -70,7 +70,7 @@ export default function ForTheBar() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-5"
           >
-            O que o WYG entrega
+            O que a WYG entrega
             <br />
             <span className="gradient-text">para o seu bar</span>
           </motion.h2>
