@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WYG Landing Page
 
-## Getting Started
+Landing page da WYG, uma plataforma que conecta bares a pessoas que estão decidindo onde sair agora.
 
-First, run the development server:
+O site apresenta a proposta de valor da marca de forma direta: mais visibilidade para o bar, lotação ao vivo, sistema de pontos e fidelização, dados reais de clientes e um modelo comercial com 3 meses grátis e comissão a partir do 4º mês.
+
+## Sobre a WYG
+
+WYG significa Where You Going. A solução foi pensada para colocar o bar na frente de usuários próximos e prontos para consumir, no momento em que a decisão de saída acontece.
+
+## O que a landing comunica
+
+- Visibilidade em tempo real para o bar no app.
+- Lotação ao vivo para ajudar na decisão do usuário.
+- Sistema de pontos e benefícios configurados pelo próprio bar.
+- Avaliações verificadas por GPS.
+- Painel com dados de consumo e comportamento do público.
+- Modelo de cobrança com 3 meses grátis e comissão de 4% a 12% sobre o consumo registrado via CPF.
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- Lucide React
+
+## Como rodar o projeto
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) para visualizar a landing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura principal
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [src/app/page.tsx](src/app/page.tsx) monta a landing.
+- [src/components/Hero.tsx](src/components/Hero.tsx) traz a proposta principal da WYG.
+- [src/components/About.tsx](src/components/About.tsx) explica o produto.
+- [src/components/ForTheBar.tsx](src/components/ForTheBar.tsx) destaca os benefícios para bares.
+- [src/components/PointsSystem.tsx](src/components/PointsSystem.tsx) mostra o sistema de fidelização.
+- [src/components/Pricing.tsx](src/components/Pricing.tsx) detalha o modelo comercial.
+- [src/components/Contact.tsx](src/components/Contact.tsx) concentra a conversão.
 
-## Learn More
+## Contato
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Site: WYG
+- Email: contato@wyg.com.br
+- Instagram: @wygapp

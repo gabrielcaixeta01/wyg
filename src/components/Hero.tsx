@@ -90,19 +90,6 @@ export default function Hero() {
 
           {/* ── Left: Copy ── */}
           <div className="flex flex-col items-start">
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={0}
-              className="flex items-center gap-2 glass-card-purple px-4 py-2 rounded-full mb-8"
-            >
-              <span className="live-dot w-2 h-2 rounded-full bg-green-400 block" />
-              <span className="text-green-400 text-xs font-semibold tracking-widest uppercase">
-                Conectando bares agora
-              </span>
-            </motion.div>
-
             <motion.h1
               variants={fadeUp}
               initial="hidden"
