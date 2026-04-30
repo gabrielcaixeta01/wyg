@@ -134,14 +134,14 @@ export default function ForTheBar() {
               Grátis pelos primeiros 3 meses. Sem cartão de crédito.
             </p>
           </div>
-          <motion.button
+          <motion.a
+            href="/register"
             whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(70,34,165,0.7)" }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" })}
             className="shrink-0 bg-purple text-white font-bold px-8 py-3.5 rounded-xl btn-shimmer glow-purple-sm transition-all duration-300 cursor-pointer whitespace-nowrap"
           >
             Cadastrar gratuitamente
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
 

@@ -123,14 +123,10 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto"
             >
               <motion.a
-                href="#contato"
+                href="/register"
                 whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(16,64,200,0.7)" }}
                 whileTap={{ scale: 0.96 }}
                 className="flex items-center justify-center gap-2 bg-purple text-white font-bold px-8 py-4 rounded-2xl text-base btn-shimmer glow-purple transition-all duration-300 cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" });
-                }}
               >
                 Cadastrar Meu Bar
                 <ArrowRight size={18} />

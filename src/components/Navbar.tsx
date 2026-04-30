@@ -74,15 +74,23 @@ export default function Navbar() {
           </nav>
 
           {/* CTA + Mobile menu toggle */}
-          <div className="flex items-center gap-3">
-            <motion.button
+          <div className="flex items-center gap-2">
+            <motion.a
+              href="/login"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              onClick={() => handleNav("#contato")}
+              className="hidden md:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2.5 rounded-full transition-colors duration-200"
+            >
+              Entrar
+            </motion.a>
+            <motion.a
+              href="/register"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               className="hidden md:flex items-center gap-2 bg-purple hover:bg-purple-light text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 btn-shimmer glow-purple-sm"
             >
               Cadastrar grátis
-            </motion.button>
+            </motion.a>
             <button
               onClick={() => setMenuOpen((o) => !o)}
               className="md:hidden text-lavender hover:text-white transition-colors p-1"
@@ -117,13 +125,19 @@ export default function Navbar() {
                 </motion.button>
               ))}
             </nav>
-            <div className="mt-auto">
-              <button
-                onClick={() => handleNav("#contato")}
-                className="w-full bg-purple text-white font-bold py-4 rounded-2xl text-lg btn-shimmer glow-purple"
+            <div className="mt-auto flex flex-col gap-3">
+              <a
+                href="/login"
+                className="w-full glass-card text-lavender font-semibold py-4 rounded-2xl text-lg text-center block hover:text-white transition-colors"
+              >
+                Entrar
+              </a>
+              <a
+                href="/register"
+                className="w-full bg-purple text-white font-bold py-4 rounded-2xl text-lg btn-shimmer glow-purple text-center block"
               >
                 Cadastrar meu bar — é grátis
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
