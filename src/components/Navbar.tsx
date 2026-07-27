@@ -16,6 +16,7 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -23,63 +24,104 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.querySelector(link.href))
+      .filter((el): el is Element => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const handleNav = (href: string) => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" as const }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
-          scrolled
-            ? "py-3 glass-card border-white/5 backdrop-blur-xl"
-            : "py-5 bg-transparent border-transparent"
+      <div
+        className={`fixed inset-x-0 top-0 z-50 flex justify-center transition-all duration-500 ease-out ${
+          scrolled ? "pt-3 px-4" : "pt-0 px-0"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <motion.header
+          initial={{ y: -80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className={`w-full flex items-center justify-between transition-all duration-500 ease-out ${
+            scrolled
+              ? "max-w-4xl rounded-full border border-white/10 bg-navy/75 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.45)] px-4 py-2"
+              : "max-w-7xl mx-auto rounded-none border border-transparent bg-transparent px-6 py-5"
+          }`}
+        >
           {/* Logo */}
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2.5 cursor-pointer"
+            className="flex items-center gap-2.5 cursor-pointer shrink-0"
           >
-            <div className="w-9 h-9 rounded-xl overflow-hidden glow-purple-sm shrink-0">
-              <Image src="/logo.png" alt="WYG logo" width={36} height={36} className="w-full h-full object-cover" priority />
+            <div className="w-8 h-8 rounded-lg overflow-hidden glow-purple-sm shrink-0">
+              <Image src="/logo.png" alt="WYG logo" width={32} height={32} className="w-full h-full object-cover" priority />
             </div>
-            <span className="text-white font-bold text-xl tracking-tight">
+            <span className="text-white font-bold text-lg tracking-tight">
               WYG
-              <span className="text-lavender font-normal text-sm ml-1 hidden sm:inline">
+              <span
+                className={`text-lavender font-normal text-sm ml-1 hidden transition-opacity duration-300 ${
+                  scrolled ? "" : "sm:inline"
+                }`}
+              >
                 Where You Going
               </span>
             </span>
           </motion.button>
 
-          {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNav(link.href)}
-                className="text-lavender hover:text-white text-sm font-medium transition-colors duration-200 cursor-pointer hover:text-glow"
-              >
-                {link.label}
-              </button>
-            ))}
+          {/* Desktop links with sliding active pill */}
+          <nav className="hidden md:flex items-center gap-1 mx-4">
+            {links.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <button
+                  key={link.href}
+                  onClick={() => handleNav(link.href)}
+                  className="relative px-4 py-2 text-sm font-medium cursor-pointer"
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-full bg-white/[0.07] border border-white/10"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 transition-colors duration-200 ${
+                      isActive ? "text-white" : "text-lavender hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
 
           {/* CTA + Mobile menu toggle */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <motion.a
               href="/login"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="hidden md:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2.5 rounded-full transition-colors duration-200"
+              className="hidden md:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200"
             >
               Entrar
             </motion.a>
@@ -93,37 +135,43 @@ export default function Navbar() {
             </motion.a>
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="md:hidden text-lavender hover:text-white transition-colors p-1"
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-lavender hover:text-white hover:bg-white/5 transition-colors"
             >
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-        </div>
-      </motion.header>
+        </motion.header>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 pt-20 pb-8 px-6 flex flex-col glass-card backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-0 z-40 pt-24 pb-8 px-6 flex flex-col bg-navy/90 backdrop-blur-2xl md:hidden"
           >
-            <nav className="flex flex-col gap-6 mt-8">
-              {links.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  onClick={() => handleNav(link.href)}
-                  className="text-left text-2xl font-semibold text-white hover:text-purple-light transition-colors cursor-pointer"
-                >
-                  {link.label}
-                </motion.button>
-              ))}
+            <nav className="flex flex-col gap-1 mt-4">
+              {links.map((link, i) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <motion.button
+                    key={link.href}
+                    initial={{ opacity: 0, y: -12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: i * 0.06, ease: "easeOut" }}
+                    onClick={() => handleNav(link.href)}
+                    className={`text-left text-2xl font-semibold py-2.5 transition-colors cursor-pointer ${
+                      isActive ? "text-purple-light" : "text-white hover:text-purple-light"
+                    }`}
+                  >
+                    {link.label}
+                  </motion.button>
+                );
+              })}
             </nav>
             <div className="mt-auto flex flex-col gap-3">
               <a
