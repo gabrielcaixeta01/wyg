@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Info, Store, Gift, CreditCard, MessageCircle } from "lucide-react";
 import Image from "next/image";
 
 const links = [
-  { label: "O que é", href: "#sobre" },
-  { label: "Para o bar", href: "#para-o-bar" },
-  { label: "Pontos", href: "#pontos" },
-  { label: "Preços", href: "#precos" },
-  { label: "Contato", href: "#contato" },
+  { label: "O que é", href: "#sobre", icon: Info },
+  { label: "Para o bar", href: "#para-o-bar", icon: Store },
+  { label: "Pontos", href: "#pontos", icon: Gift },
+  { label: "Preços", href: "#precos", icon: CreditCard },
+  { label: "Contato", href: "#contato", icon: MessageCircle },
 ];
 
 export default function Navbar() {
@@ -99,7 +99,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="nav-active-pill"
-                      className="absolute inset-0 rounded-full bg-white/[0.07] border border-white/10"
+                      className="absolute inset-0 rounded-full bg-white/7 border border-white/10"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -147,47 +147,82 @@ export default function Navbar() {
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-0 z-40 pt-24 pb-8 px-6 flex flex-col bg-navy/90 backdrop-blur-2xl md:hidden"
-          >
-            <nav className="flex flex-col gap-1 mt-4">
-              {links.map((link, i) => {
-                const isActive = activeSection === link.href.slice(1);
-                return (
-                  <motion.button
-                    key={link.href}
-                    initial={{ opacity: 0, y: -12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: i * 0.06, ease: "easeOut" }}
-                    onClick={() => handleNav(link.href)}
-                    className={`text-left text-2xl font-semibold py-2.5 transition-colors cursor-pointer ${
-                      isActive ? "text-purple-light" : "text-white hover:text-purple-light"
-                    }`}
-                  >
-                    {link.label}
-                  </motion.button>
-                );
-              })}
-            </nav>
-            <div className="mt-auto flex flex-col gap-3">
-              <a
-                href="/login"
-                className="w-full glass-card text-lavender font-semibold py-4 rounded-2xl text-lg text-center block hover:text-white transition-colors"
-              >
-                Entrar
-              </a>
-              <a
-                href="/register"
-                className="w-full bg-purple text-white font-bold py-4 rounded-2xl text-lg btn-shimmer glow-purple text-center block"
-              >
-                Cadastrar meu bar — é grátis
-              </a>
-            </div>
-          </motion.div>
+          <>
+            {/* Backdrop */}
+            <motion.button
+              aria-label="Fechar menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden cursor-default"
+            />
+
+            {/* Dropdown panel, docked below the floating nav */}
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.96 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className={`fixed z-50 inset-x-4 md:hidden origin-top rounded-3xl border border-white/10 bg-navy/95 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-3 transition-[top] duration-500 ease-out ${
+                scrolled ? "top-16" : "top-20"
+              }`}
+            >
+              <nav className="flex flex-col gap-0.5">
+                {links.map((link, i) => {
+                  const isActive = activeSection === link.href.slice(1);
+                  const Icon = link.icon;
+                  return (
+                    <motion.button
+                      key={link.href}
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: i * 0.05, ease: "easeOut" }}
+                      onClick={() => handleNav(link.href)}
+                      className="relative flex items-center gap-3 px-4 py-3.5 rounded-2xl cursor-pointer"
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="mobile-active-pill"
+                          className="absolute inset-0 rounded-2xl bg-white/6 border border-white/10"
+                          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                        />
+                      )}
+                      <Icon
+                        size={18}
+                        className={`relative z-10 shrink-0 ${isActive ? "text-purple-light" : "text-muted"}`}
+                      />
+                      <span
+                        className={`relative z-10 text-base font-semibold ${
+                          isActive ? "text-white" : "text-white/85"
+                        }`}
+                      >
+                        {link.label}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </nav>
+
+              <div className="h-px bg-white/5 my-2 mx-1" />
+
+              <div className="flex flex-col gap-2 p-1">
+                <a
+                  href="/login"
+                  className="w-full glass-card text-lavender font-semibold py-3.5 rounded-2xl text-base text-center block hover:text-white transition-colors"
+                >
+                  Entrar
+                </a>
+                <a
+                  href="/register"
+                  className="w-full bg-purple text-white font-bold py-3.5 rounded-2xl text-base btn-shimmer glow-purple-sm text-center block"
+                >
+                  Cadastrar meu bar — é grátis
+                </a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
