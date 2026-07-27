@@ -29,7 +29,7 @@ export default function RegisterPage() {
 
       {/* ── Left: Institutional ── */}
       <div
-        className="relative lg:w-1/2 flex flex-col justify-between p-10 lg:p-16 overflow-hidden min-h-[40vh] lg:min-h-screen"
+        className="relative order-2 lg:order-1 lg:w-1/2 flex flex-col justify-between p-10 lg:p-16 overflow-hidden min-h-[40vh] lg:min-h-screen"
         style={{ background: "linear-gradient(145deg, #04050C 0%, #080D22 45%, #0C0820 100%)" }}
       >
         <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
@@ -86,13 +86,13 @@ export default function RegisterPage() {
         </div>
 
         <div className="relative z-10 text-muted text-xs">
-          © 2025 WYG · Where You Going
+          © {new Date().getFullYear()} WYG · Where You Going
         </div>
       </div>
 
       {/* ── Right: Form ── */}
       <div
-        className="lg:w-1/2 flex items-center justify-center p-8 lg:p-16"
+        className="order-1 lg:order-2 lg:w-1/2 flex items-center justify-center p-8 lg:p-16"
         style={{ background: "#06070F" }}
       >
         <motion.div
