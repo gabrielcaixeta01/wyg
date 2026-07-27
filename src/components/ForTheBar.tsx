@@ -4,23 +4,16 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { BarChart2, Gift, Eye, Star } from "lucide-react";
 
-const BENEFITS = [
-  {
-    icon: BarChart2,
-    color: "from-purple/30 to-purple/10",
-    border: "border-purple/30",
-    iconColor: "text-purple-light",
-    title: "Painel de gestão completo",
-    desc: "Dados reais dos seus clientes: horário de pico, bairros de origem, ticket médio e histórico de consumo — tudo em tempo real, num painel simples.",
-    tag: "Dados",
-  },
+const PANEL_STATS = ["Horário de pico", "Ticket médio", "Bairro de origem"];
+
+const SIDE_BENEFITS = [
   {
     icon: Gift,
     color: "from-violet-600/30 to-violet-600/10",
     border: "border-violet-500/30",
     iconColor: "text-violet-400",
     title: "Sistema de fidelização",
-    desc: "Crie benefícios personalizados como drinks, entradas e descontos. As regras são definidas pelo próprio bar — você decide o que faz sentido para o seu negócio.",
+    desc: "Crie benefícios personalizados como drinks, entradas e descontos. As regras são definidas pelo próprio bar.",
     tag: "Fidelização",
   },
   {
@@ -29,17 +22,8 @@ const BENEFITS = [
     border: "border-indigo-500/30",
     iconColor: "text-indigo-400",
     title: "Visibilidade para quem decide",
-    desc: "Seu bar aparece para o público certo no momento exato em que a pessoa está escolhendo onde ir — não é impressão, é intenção real de sair.",
+    desc: "Seu bar aparece para o público certo no momento exato em que a pessoa está escolhendo onde ir.",
     tag: "Visibilidade",
-  },
-  {
-    icon: Star,
-    color: "from-purple/30 to-indigo-600/10",
-    border: "border-purple/30",
-    iconColor: "text-purple-light",
-    title: "Avaliações verificadas",
-    desc: "Só avalia quem esteve no local. A verificação é feita por GPS, o que elimina avaliações falsas e garante que a reputação do seu bar reflita a realidade.",
-    tag: "Confiança",
   },
 ];
 
@@ -85,16 +69,58 @@ export default function ForTheBar() {
           </motion.p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-5">
-          {BENEFITS.map((benefit, i) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-5">
+
+          {/* ── Featured: Painel de gestão (large) ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: "easeOut" as const }}
+            className="relative glass-card rounded-2xl p-7 sm:p-8 card-hover group overflow-hidden sm:col-span-2 lg:col-span-2 lg:row-span-2 flex flex-col justify-between"
+          >
+            <div className="absolute inset-0 bg-linear-to-br from-purple/30 to-purple/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-purple/30 to-purple/10 border border-purple/30 flex items-center justify-center text-purple-light group-hover:scale-110 transition-transform duration-300">
+                  <BarChart2 size={26} />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-purple-light opacity-60">
+                  Dados
+                </span>
+              </div>
+
+              <h3 className="text-white font-bold text-2xl leading-tight mb-3 max-w-xs">
+                Painel de gestão completo
+              </h3>
+              <p className="text-muted text-sm leading-relaxed max-w-sm">
+                Dados reais dos seus clientes — horário de pico, ticket médio, bairro de
+                origem e histórico de consumo, tudo em tempo real num painel simples.
+              </p>
+            </div>
+
+            <div className="relative z-10 flex flex-wrap gap-2 mt-8">
+              {PANEL_STATS.map((stat) => (
+                <span
+                  key={stat}
+                  className="text-xs text-white/70 bg-white/5 border border-white/10 rounded-full px-3 py-1.5"
+                >
+                  {stat}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ── Side cards ── */}
+          {SIDE_BENEFITS.map((benefit, i) => {
             const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.title}
                 initial={{ opacity: 0, y: 40 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: "easeOut" as const }}
-                className="relative glass-card rounded-2xl p-6 card-hover group overflow-hidden"
+                transition={{ duration: 0.6, delay: 0.15 + i * 0.1, ease: "easeOut" as const }}
+                className="relative glass-card rounded-2xl p-6 card-hover group overflow-hidden lg:col-span-1"
               >
                 <div className={`absolute inset-0 bg-linear-to-br ${benefit.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
 
@@ -119,6 +145,39 @@ export default function ForTheBar() {
             );
           })}
         </div>
+
+        {/* ── Avaliações verificadas: wide banner ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" as const }}
+          className="relative glass-card rounded-2xl p-6 sm:p-7 card-hover group overflow-hidden mt-5 flex flex-col sm:flex-row sm:items-center gap-5"
+        >
+          <div className="absolute inset-0 bg-linear-to-br from-purple/30 to-indigo-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+
+          <div className="relative z-10 flex items-center justify-between sm:justify-start gap-5">
+            <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple/30 to-indigo-600/10 border border-purple/30 flex items-center justify-center text-purple-light shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <Star size={22} />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-light opacity-60 sm:hidden">
+              Confiança
+            </span>
+          </div>
+
+          <div className="relative z-10 flex-1">
+            <h3 className="text-white font-bold text-lg leading-tight mb-1.5">
+              Avaliações verificadas
+            </h3>
+            <p className="text-muted text-sm leading-relaxed">
+              Só avalia quem esteve no local — verificação por GPS elimina avaliações
+              falsas e garante que a reputação do seu bar reflita a realidade.
+            </p>
+          </div>
+
+          <span className="relative z-10 shrink-0 hidden sm:block text-xs font-bold uppercase tracking-wider text-purple-light opacity-60 sm:self-start">
+            Confiança
+          </span>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
