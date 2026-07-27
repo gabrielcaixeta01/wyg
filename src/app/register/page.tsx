@@ -4,10 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Shield } from "lucide-react";
+import { ArrowRight, ArrowLeft, Shield, User, Mail, Phone, Building2 } from "lucide-react";
 
 const inputClass =
-  "w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl px-4 py-3.5 text-white placeholder-muted text-sm focus:outline-none focus:border-accent/60 focus:bg-accent/[0.05] transition-all duration-200";
+  "w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-11 pr-4 py-3.5 text-white placeholder-muted text-sm focus:outline-none focus:border-accent/60 focus:bg-accent/[0.05] transition-all duration-200";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -27,14 +27,14 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
 
-      {/* ── Left: Institutional ── */}
+      {/* ── Top/Left: Institutional ── */}
       <div
-        className="relative order-2 lg:order-1 lg:w-1/2 flex flex-col justify-between p-10 lg:p-16 overflow-hidden min-h-[40vh] lg:min-h-screen"
+        className="relative lg:w-1/2 flex flex-col justify-start lg:justify-between overflow-hidden px-6 pt-8 pb-16 lg:p-16 lg:min-h-screen"
         style={{ background: "linear-gradient(145deg, #04050C 0%, #080D22 45%, #0C0820 100%)" }}
       >
         <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
-        <div className="orb w-96 h-96 bg-purple/20 -top-20 -left-20" style={{ animationDelay: "0s" }} />
-        <div className="orb w-72 h-72 bg-accent/15 bottom-10 -right-10" style={{ animationDelay: "2s" }} />
+        <div className="orb w-56 h-56 lg:w-96 lg:h-96 bg-purple/20 -top-16 -left-16 lg:-top-20 lg:-left-20" style={{ animationDelay: "0s" }} />
+        <div className="orb w-40 h-40 lg:w-72 lg:h-72 bg-accent/15 bottom-4 -right-6 lg:bottom-10 lg:-right-10" style={{ animationDelay: "2s" }} />
 
         {/* Logo */}
         <div className="relative z-10 flex items-center gap-3">
@@ -45,12 +45,12 @@ export default function RegisterPage() {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 my-auto py-12 lg:py-16">
+        <div className="relative z-10 lg:my-auto mt-6 lg:mt-0 py-0 lg:py-16">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.05] tracking-tight mb-6"
+            className="text-3xl lg:text-5xl xl:text-6xl font-black leading-[1.1] lg:leading-[1.05] tracking-tight mb-3 lg:mb-6"
           >
             Leve seu bar
             <br />a outro nível
@@ -61,7 +61,7 @@ export default function RegisterPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25 }}
-            className="text-lavender text-lg leading-relaxed max-w-md"
+            className="text-lavender text-sm lg:text-lg leading-relaxed max-w-md"
           >
             Nossa equipe comercial entrará em contato para apresentar os benefícios
             e condições de parceria exclusivas para o seu estabelecimento.
@@ -71,7 +71,7 @@ export default function RegisterPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex gap-10 mt-12"
+            className="hidden lg:flex gap-10 mt-12"
           >
             {[
               { value: "100%", label: "Gratuito para começar" },
@@ -85,37 +85,42 @@ export default function RegisterPage() {
           </motion.div>
         </div>
 
-        <div className="relative z-10 text-muted text-xs">
+        <div className="relative z-10 text-muted text-xs hidden lg:block">
           © {new Date().getFullYear()} WYG · Where You Going
         </div>
       </div>
 
-      {/* ── Right: Form ── */}
+      {/* ── Bottom/Right: Form (docked sheet on mobile) ── */}
       <div
-        className="order-1 lg:order-2 lg:w-1/2 flex items-center justify-center p-8 lg:p-16"
+        className="relative lg:w-1/2 flex items-center justify-center -mt-8 lg:mt-0 rounded-t-4xl lg:rounded-none border-t border-white/10 lg:border-t-0 shadow-[0_-24px_50px_-20px_rgba(0,0,0,0.6)] lg:shadow-none px-6 pt-10 pb-10 lg:p-16"
         style={{ background: "#06070F" }}
       >
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
           className="w-full max-w-md"
         >
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-muted hover:text-lavender text-sm transition-colors mb-10 group"
+            className="inline-flex items-center gap-1.5 text-muted hover:text-lavender text-sm transition-colors mb-6 lg:mb-10 group"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
             Voltar para o site
           </Link>
 
-          {/* Small logo */}
-          <div className="flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0">
-              <Image src="/logo.png" alt="WYG" width={32} height={32} className="w-full h-full object-cover" />
-            </div>
-            <span className="text-lavender text-sm font-medium">WYG</span>
+          {/* Mobile-only compact stats */}
+          <div className="flex gap-6 mb-6 lg:hidden">
+            {[
+              { value: "100%", label: "Gratuito" },
+              { value: "24h", label: "Resposta" },
+            ].map((stat) => (
+              <div key={stat.label} className="flex items-baseline gap-1.5">
+                <p className="text-white font-black text-lg">{stat.value}</p>
+                <p className="text-muted text-xs">{stat.label}</p>
+              </div>
+            ))}
           </div>
 
           {submitted ? (
@@ -147,41 +152,50 @@ export default function RegisterPage() {
                   <label className="text-lavender text-xs font-semibold uppercase tracking-wider block mb-2">
                     Seu nome
                   </label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="João Silva"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className={inputClass}
-                  />
+                  <div className="relative">
+                    <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+                    <input
+                      required
+                      type="text"
+                      placeholder="João Silva"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div>
                     <label className="text-lavender text-xs font-semibold uppercase tracking-wider block mb-2">
                       E-mail
                     </label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="joao@bar.com.br"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+                      <input
+                        required
+                        type="email"
+                        placeholder="joao@bar.com.br"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className={inputClass}
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="text-lavender text-xs font-semibold uppercase tracking-wider block mb-2">
                       WhatsApp
                     </label>
-                    <input
-                      type="tel"
-                      placeholder="(61) 99999-9999"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className={inputClass}
-                    />
+                    <div className="relative">
+                      <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+                      <input
+                        type="tel"
+                        placeholder="(61) 99999-9999"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        className={inputClass}
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -189,14 +203,17 @@ export default function RegisterPage() {
                   <label className="text-lavender text-xs font-semibold uppercase tracking-wider block mb-2">
                     Nome do estabelecimento
                   </label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="Bar do João"
-                    value={form.establishment}
-                    onChange={(e) => setForm({ ...form, establishment: e.target.value })}
-                    className={inputClass}
-                  />
+                  <div className="relative">
+                    <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+                    <input
+                      required
+                      type="text"
+                      placeholder="Bar do João"
+                      value={form.establishment}
+                      onChange={(e) => setForm({ ...form, establishment: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -245,6 +262,10 @@ export default function RegisterPage() {
               </Link>
             </p>
           </div>
+
+          <p className="mt-8 text-center text-muted text-xs lg:hidden">
+            © {new Date().getFullYear()} WYG · Where You Going
+          </p>
         </motion.div>
       </div>
     </div>
