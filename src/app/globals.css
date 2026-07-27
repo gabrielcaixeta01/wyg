@@ -1,19 +1,15 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-blue: #1040C8;
-  --color-blue-light: #3F6CF5;
   --color-purple: #1040C8;
   --color-purple-light: #3F6CF5;
   --color-accent: #6D28D9;
-  --color-accent-light: #8B5CF6;
   --color-navy: #06070F;
   --color-lavender: #8BA4C4;
   --color-muted: #4A566E;
   --color-background: #06070F;
   --color-foreground: #ffffff;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @layer base {
@@ -48,13 +44,6 @@ body {
 /* ── Gradient text ── */
 .gradient-text {
   background: linear-gradient(135deg, #ffffff 0%, #93BCFF 55%, #6D28D9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-subtle {
-  background: linear-gradient(135deg, #8BA4C4 0%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -147,17 +136,6 @@ body {
   animation: shimmer-slide 3s linear infinite;
 }
 
-/* ── Pulse ring ── */
-@keyframes pulse-ring {
-  0%   { transform: scale(0.95); opacity: 0.8; }
-  50%  { transform: scale(1.05); opacity: 0.3; }
-  100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.live-dot {
-  animation: pulse-ring 1.8s ease-in-out infinite;
-}
-
 /* ── Glass card ── */
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
@@ -171,21 +149,6 @@ body {
   border: 1px solid rgba(16, 64, 200, 0.25);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-}
-
-/* ── Scroll indicator ── */
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.6; }
-  50%       { transform: translateY(8px); opacity: 1; }
-}
-
-.scroll-indicator {
-  animation: scroll-bounce 2s ease-in-out infinite;
-}
-
-/* ── Number counter glow ── */
-.stat-number {
-  font-variant-numeric: tabular-nums;
 }
 
 /* ── Border gradient ── */
@@ -204,11 +167,6 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-}
-
-/* ── Step connector line ── */
-.step-line {
-  background: linear-gradient(180deg, #1040C8 0%, transparent 100%);
 }
 
 /* ── Hover card lift ── */
