@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Info, Store, Gift, CreditCard, MessageCircle } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +17,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -41,6 +43,54 @@ export default function Navbar() {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
+
+  // While the mobile panel is open: trap focus inside it, close on Escape, and
+  // stop the page behind it from scrolling.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const panel = panelRef.current;
+    const toggle = toggleRef.current;
+    const focusablesIn = (root: HTMLElement) =>
+      Array.from(
+        root.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")
+      );
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !panel) return;
+
+      const focusables = focusablesIn(panel);
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    if (panel) focusablesIn(panel)[0]?.focus();
+
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      // Send focus back to the toggle, but not on first mount.
+      toggle?.focus();
+    };
+  }, [menuOpen]);
 
   // Anchors handle the scroll natively (`scroll-behavior: smooth` in globals.css),
   // so this only has to dismiss the mobile panel.
@@ -134,8 +184,11 @@ export default function Navbar() {
               Cadastrar grátis
             </motion.a>
             <button
+              ref={toggleRef}
               onClick={() => setMenuOpen((o) => !o)}
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               className="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-lavender hover:text-white hover:bg-white/5 transition-colors"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -148,9 +201,10 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop */}
-            <motion.button
-              aria-label="Fechar menu"
+            {/* Backdrop — Escape and the close button are the accessible paths out,
+                so this stays out of the tab order. */}
+            <motion.div
+              aria-hidden="true"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -161,6 +215,11 @@ export default function Navbar() {
 
             {/* Dropdown panel, docked below the floating nav */}
             <motion.div
+              ref={panelRef}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu de navegação"
               initial={{ opacity: 0, y: -12, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.96 }}

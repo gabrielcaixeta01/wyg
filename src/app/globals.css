@@ -2,11 +2,13 @@
 
 @theme inline {
   --color-purple: #1040C8;
-  --color-purple-light: #3F6CF5;
+  /* purple-light and muted are tuned for WCAG AA (4.5:1) against both the page
+     background (#06070F) and the glass-card surface (~#0D0E16). */
+  --color-purple-light: #4F79F7;
   --color-accent: #6D28D9;
   --color-navy: #06070F;
   --color-lavender: #8BA4C4;
-  --color-muted: #4A566E;
+  --color-muted: #6C7E9D;
   --color-background: #06070F;
   --color-foreground: #ffffff;
   --font-sans: var(--font-geist-sans);
@@ -182,4 +184,46 @@ body {
 .card-hover:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 60px rgba(16, 64, 200, 0.25);
+}
+
+/* ── Reduced motion ──
+   The page runs several simultaneous infinite animations (particles, orbs,
+   drifting gradient, button shimmer). Stop the looping/decorative ones and keep
+   only instant state changes. framer-motion is handled by MotionProvider. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Purely decorative loops: remove rather than freeze mid-keyframe. */
+  .particle {
+    display: none;
+  }
+
+  .btn-shimmer::after {
+    display: none;
+  }
+
+  .orb {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .animated-gradient-bg {
+    animation: none;
+    background-size: 100% 100%;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
 }
