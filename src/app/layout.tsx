@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { SITE_URL } from "@/lib/site";
+import { OG_BASE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geist = Geist({
@@ -11,26 +11,30 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "WYG — Where You Going | Conecte seu bar a quem quer sair agora",
+  // `template` applies to child segments only — the home page uses `default`.
+  title: {
+    default: "WYG — Where You Going | Conecte seu bar a quem quer sair agora",
+    template: "%s | WYG",
+  },
   description:
     "A WYG conecta bares a pessoas que estão decidindo onde ir em tempo real. Mais visibilidade, mais clientes, mais recorrência. Comece grátis.",
   keywords: ["wyg", "ticketeria", "bar", "festa", "clientes", "fidelização"],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
+    ...OG_BASE,
     title: "WYG — Where You Going",
     description: "Conecte seu bar a quem quer sair agora.",
-    type: "website",
     url: SITE_URL,
-    siteName: "WYG",
-    locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
     title: "WYG — Where You Going",
     description: "Conecte seu bar a quem quer sair agora.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#06070F",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

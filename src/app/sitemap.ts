@@ -1,13 +1,20 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/login", "/register"];
+// `/login` is intentionally absent: it is noindex, and listing a noindex URL
+// in the sitemap sends contradictory signals to crawlers.
+const ROUTES = [
+  { path: "", priority: 1 },
+  { path: "/register", priority: 0.8 },
+];
 
-  return routes.map((route) => ({
-    url: `${SITE_URL}${route}`,
-    lastModified: new Date(),
+export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
+
+  return ROUTES.map(({ path, priority }) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified,
     changeFrequency: "monthly",
-    priority: route === "" ? 1 : 0.6,
+    priority,
   }));
 }

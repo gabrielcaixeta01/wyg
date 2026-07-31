@@ -42,10 +42,9 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const handleNav = (href: string) => {
-    setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Anchors handle the scroll natively (`scroll-behavior: smooth` in globals.css),
+  // so this only has to dismiss the mobile panel.
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
@@ -91,9 +90,10 @@ export default function Navbar() {
             {links.map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
-                <button
+                <a
                   key={link.href}
-                  onClick={() => handleNav(link.href)}
+                  href={link.href}
+                  aria-current={isActive ? "true" : undefined}
                   className="relative px-4 py-2 text-sm font-medium cursor-pointer"
                 >
                   {isActive && (
@@ -110,7 +110,7 @@ export default function Navbar() {
                   >
                     {link.label}
                   </span>
-                </button>
+                </a>
               );
             })}
           </nav>
@@ -174,12 +174,14 @@ export default function Navbar() {
                   const isActive = activeSection === link.href.slice(1);
                   const Icon = link.icon;
                   return (
-                    <motion.button
+                    <motion.a
                       key={link.href}
+                      href={link.href}
+                      aria-current={isActive ? "true" : undefined}
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: i * 0.05, ease: "easeOut" }}
-                      onClick={() => handleNav(link.href)}
+                      onClick={closeMenu}
                       className="relative flex items-center gap-3 px-4 py-3.5 rounded-2xl cursor-pointer"
                     >
                       {isActive && (
@@ -200,7 +202,7 @@ export default function Navbar() {
                       >
                         {link.label}
                       </span>
-                    </motion.button>
+                    </motion.a>
                   );
                 })}
               </nav>
