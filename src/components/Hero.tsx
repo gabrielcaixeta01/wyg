@@ -29,9 +29,15 @@ const fadeUp = {
   }),
 };
 
+/* The mockup is drawn with inline styles, so it cannot read the Tailwind theme
+   tokens (`@theme inline` bakes them into utility classes rather than emitting
+   CSS variables). Mirror `--color-purple-light` here and keep the two in sync. */
+const BRAND_BLUE = "#4F79F7";
+const BRAND_BLUE_RGB = "79,121,247";
+
 /* ── Inline map pins for the mini-map ── */
 const MAP_PINS = [
-  { top: "28%", left: "24%", delay: 0, color: "#3F6CF5", shadow: "rgba(63,108,245,0.9)" },
+  { top: "28%", left: "24%", delay: 0, color: BRAND_BLUE, shadow: `rgba(${BRAND_BLUE_RGB},0.9)` },
   { top: "58%", left: "62%", delay: 0.5, color: "#8B5CF6", shadow: "rgba(139,92,246,0.9)" },
   { top: "38%", left: "72%", delay: 1.0, color: "#F97316", shadow: "rgba(249,115,22,0.9)" },
 ];
@@ -134,16 +140,14 @@ export default function Hero() {
                 Cadastrar Meu Bar
                 <ArrowRight size={18} />
               </MotionLink>
-              <motion.button
+              <motion.a
+                href="#sobre"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() =>
-                  document.querySelector("#sobre")?.scrollIntoView({ behavior: "smooth" })
-                }
                 className="flex items-center justify-center gap-2 glass-card text-white font-semibold px-8 py-4 rounded-2xl text-base transition-all duration-300 hover:border-purple/40 cursor-pointer"
               >
                 Entender o produto
-              </motion.button>
+              </motion.a>
             </motion.div>
           </div>
 
@@ -286,13 +290,13 @@ export default function Hero() {
                         animate={{ scale: [1, 2.5, 1], opacity: [0.4, 0, 0.4] }}
                         transition={{ duration: 2, repeat: Infinity }}
                         className="absolute rounded-full -translate-x-1/2 -translate-y-1/2"
-                        style={{ width: 22, height: 22, background: "#3F6CF5" }}
+                        style={{ width: 22, height: 22, background: BRAND_BLUE }}
                       />
                       <div
                         className="w-4 h-4 rounded-full border-2 border-white relative z-10"
                         style={{
-                          background: "#3F6CF5",
-                          boxShadow: "0 0 10px rgba(63,108,245,0.9)",
+                          background: BRAND_BLUE,
+                          boxShadow: `0 0 10px rgba(${BRAND_BLUE_RGB},0.9)`,
                           transform: "translate(-50%, -50%)",
                         }}
                       />

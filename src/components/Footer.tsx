@@ -2,23 +2,8 @@
 
 import { MessageCircle, Mail, ArrowUp } from "lucide-react";
 import Image from "next/image";
-
-function InstagramIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="0.01" fill="currentColor" strokeWidth="3"/>
-    </svg>
-  );
-}
-
-const quickLinks = [
-  { label: "O que é", href: "#sobre" },
-  { label: "Para o bar", href: "#para-o-bar" },
-  { label: "Pontos", href: "#pontos" },
-  { label: "Preços", href: "#precos" },
-];
+import InstagramIcon from "./icons/InstagramIcon";
+import { FOOTER_SECTIONS as quickLinks } from "@/lib/nav";
 
 export default function Footer() {
   return (

@@ -5,9 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Mail, Lock } from "lucide-react";
-
-const inputClass =
-  "w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-11 pr-4 py-3.5 text-white placeholder-muted text-sm focus:outline-none focus:border-accent/60 focus:bg-accent/[0.05] transition-all duration-200";
+import { INPUT_CLASS as inputClass } from "@/lib/forms";
 
 export default function LoginView() {
   const [form, setForm] = useState({ email: "", password: "" });

@@ -2,18 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Info, Store, Gift, CreditCard, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { MotionLink } from "./MotionLink";
-
-const links = [
-  { label: "O que é", href: "#sobre", icon: Info },
-  { label: "Para o bar", href: "#para-o-bar", icon: Store },
-  { label: "Pontos", href: "#pontos", icon: Gift },
-  { label: "Preços", href: "#precos", icon: CreditCard },
-  { label: "Contato", href: "#contato", icon: MessageCircle },
-];
+import { SECTIONS as links } from "@/lib/nav";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
