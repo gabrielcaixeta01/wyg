@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Flame, Map, Search, User } from "lucide-react";
+import { MotionLink } from "./MotionLink";
 
 type Particle = {
   id: number;
@@ -37,10 +37,13 @@ const MAP_PINS = [
 ];
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
 
+  // Particles are randomised, so they can only be generated after mount —
+  // building them during render would produce different markup on the server
+  // and the client and trip a hydration mismatch.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(
       Array.from({ length: 28 }, (_, i) => ({
         id: i,
@@ -54,7 +57,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden animated-gradient-bg grid-pattern">
+    <section className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden animated-gradient-bg grid-pattern">
       <div
         className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
@@ -67,7 +70,7 @@ export default function Hero() {
       <div className="orb w-100 h-100 bg-purple/30 -bottom-25 -right-25" style={{ animationDelay: "3s" }} />
       <div className="orb w-75 h-75 bg-indigo-600/15 top-[40%] left-[60%]" style={{ animationDelay: "1.5s" }} />
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" ref={canvasRef}>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {particles.map((p) => (
           <div
             key={p.id}
@@ -122,7 +125,7 @@ export default function Hero() {
               custom={3}
               className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto"
             >
-              <motion.a
+              <MotionLink
                 href="/register"
                 whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(16,64,200,0.7)" }}
                 whileTap={{ scale: 0.96 }}
@@ -130,7 +133,7 @@ export default function Hero() {
               >
                 Cadastrar Meu Bar
                 <ArrowRight size={18} />
-              </motion.a>
+              </MotionLink>
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}

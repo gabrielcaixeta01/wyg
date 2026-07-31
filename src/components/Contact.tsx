@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MessageCircle, Mail, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
@@ -110,12 +111,12 @@ export default function Contact() {
         >
           <p className="text-muted text-sm">
             Já tem uma conta?{" "}
-            <a
+            <Link
               href="/login"
               className="text-purple-light font-semibold hover:text-white transition-colors inline-flex items-center gap-1"
             >
               Entrar na plataforma <ExternalLink size={12} />
-            </a>
+            </Link>
           </p>
         </motion.div>
       </div>

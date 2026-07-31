@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Info, Store, Gift, CreditCard, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { MotionLink } from "./MotionLink";
 
 const links = [
   { label: "O que é", href: "#sobre", icon: Info },
@@ -28,14 +30,26 @@ export default function Navbar() {
 
   useEffect(() => {
     const sections = links
-      .map((link) => document.querySelector(link.href))
-      .filter((el): el is Element => el !== null);
+      .map((link) => document.querySelector<HTMLElement>(link.href))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    // Track what is currently in the detection band rather than reacting to
+    // single entries: an entry leaving has to clear the indicator too, otherwise
+    // the last active link stays highlighted forever (e.g. back at the hero).
+    const visible = new Set<string>();
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        }
+
+        // Resolve in document order so overlapping sections are deterministic.
+        const current = sections.find((section) => visible.has(section.id));
+        setActiveSection(current?.id ?? "");
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
@@ -167,22 +181,22 @@ export default function Navbar() {
 
           {/* CTA + Mobile menu toggle */}
           <div className="flex items-center gap-2 shrink-0">
-            <motion.a
+            <MotionLink
               href="/login"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               className="hidden md:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200"
             >
               Entrar
-            </motion.a>
-            <motion.a
+            </MotionLink>
+            <MotionLink
               href="/register"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               className="hidden md:flex items-center gap-2 bg-purple hover:bg-purple-light text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 btn-shimmer glow-purple-sm"
             >
               Cadastrar grátis
-            </motion.a>
+            </MotionLink>
             <button
               ref={toggleRef}
               onClick={() => setMenuOpen((o) => !o)}
@@ -269,18 +283,20 @@ export default function Navbar() {
               <div className="h-px bg-white/5 my-2 mx-1" />
 
               <div className="flex flex-col gap-2 p-1">
-                <a
+                <Link
                   href="/login"
+                  onClick={closeMenu}
                   className="w-full glass-card text-lavender font-semibold py-3.5 rounded-2xl text-base text-center block hover:text-white transition-colors"
                 >
                   Entrar
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/register"
+                  onClick={closeMenu}
                   className="w-full bg-purple text-white font-bold py-3.5 rounded-2xl text-base btn-shimmer glow-purple-sm text-center block"
                 >
                   Cadastrar meu bar — é grátis
-                </a>
+                </Link>
               </div>
             </motion.div>
           </>
