@@ -11,7 +11,12 @@
   --color-muted: #6C7E9D;
   --color-background: #06070F;
   --color-foreground: #ffffff;
+  /* Warm accent, reserved for crowd heat: peak hour, "bombando", high occupancy.
+     Tying it to a single meaning keeps it from becoming decoration. 7.17:1 on the
+     page background, 6.86:1 on glass. */
+  --color-ember: #F97316;
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-bricolage);
 }
 
 @layer base {
@@ -27,6 +32,15 @@ html {
 /* Keep anchored sections clear of the fixed navbar. */
 section[id] {
   scroll-margin-top: 5rem;
+}
+
+/* Display face on the big type only. Card titles (h3) and UI stay on Geist,
+   which is more legible at small sizes. */
+h1,
+h2,
+.font-display {
+  font-family: var(--font-bricolage), var(--font-geist-sans), system-ui, sans-serif;
+  letter-spacing: -0.03em;
 }
 
 body {

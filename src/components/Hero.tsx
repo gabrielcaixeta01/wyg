@@ -363,8 +363,8 @@ export default function Hero() {
                           </div>
                         </div>
                         <div className="flex items-center gap-0.5 shrink-0">
-                          <Flame size={9} className="text-orange-400" />
-                          <span className="text-orange-400 text-[9px] font-semibold">{bar.occupancy}</span>
+                          <Flame size={9} className="text-ember" />
+                          <span className="text-ember text-[9px] font-semibold">{bar.occupancy}</span>
                         </div>
                       </motion.div>
                     ))}

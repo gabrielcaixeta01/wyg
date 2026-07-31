@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Bricolage_Grotesque } from "next/font/google";
 import MotionProvider from "@/components/MotionProvider";
 import { OG_BASE, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -8,6 +8,18 @@ const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "900"],
+});
+
+/**
+ * Display face. An editorial grotesque with slightly irregular shapes — reads
+ * closer to a night-out poster than the geometric sans every SaaS dashboard
+ * uses, while still holding up at very large weights.
+ */
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  // 600 for the pull quote, 800 for headings (font-black clamps down to it).
+  weight: ["600", "800"],
 });
 
 export const metadata: Metadata = {
@@ -42,7 +54,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${geist.variable} h-full`}>
+    <html lang="pt-BR" className={`${geist.variable} ${bricolage.variable} h-full`}>
       <body className="min-h-full antialiased">
         <MotionProvider>{children}</MotionProvider>
       </body>

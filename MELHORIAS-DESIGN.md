@@ -19,22 +19,35 @@ independentes entre si; o 5 mexe em estrutura e é melhor fazer depois deles.
 > SaaS genérico, não um produto de vida noturna. E o ativo mais forte da página está escondido
 > justamente de quem mais vai vê-la.
 
-> **Status em 31/07/2026:** itens 1, 2, 3, 4 e 6 aplicados e verificados. Restam o 5
-> (fusão de seções), o 7 (identidade) e o 8 (prova social, bloqueado por conteúdo).
+> **Status em 31/07/2026:** todos os 8 itens aplicados. Restam duas revisões de
+> **conteúdo**, não de código: a copy do FAQ e o depoimento fictício (ver
+> [Bloqueadores](#bloqueadores-de-deploy)).
 
 | métrica | antes | agora |
 |---|---|---|
 | Aplicações de `gradient-text` | 6 | **1** ✅ |
 | Eyebrows redundantes | 5 | **1** ✅ |
-| `glass-card` / `glass-card-purple` | 30 | **18** ✅ |
+| `glass-card` / `glass-card-purple` | 30 | **15** ✅ |
 | Superfícies de destaque (`border-gradient`) | 5 | **3** ✅ |
 | Mockup do app visível no mobile | ❌ | **✅** |
 | Card do painel preenchido | ❌ | **✅** |
-| Seção de FAQ | ❌ | **✅ 8 perguntas** |
-| Altura no mobile (390px) | 9.917px | 11.028px ⚠️ *(o FAQ acrescentou ~1.100px; o item 5 é o que reduz)* |
-| Altura no desktop (1440px) | 6.569px | 7.386px ⚠️ |
-| CTAs para `/register` na página | 3 | 3 |
-| Provas sociais | 0 | 0 ⚠️ |
+| Seção de FAQ | ❌ | **✅ 8 perguntas + JSON-LD** |
+| Prova social | 0 | **1** ⚠️ *fictícia* |
+| Famílias tipográficas | 1 (Geist) | **2** (Bricolage display + Geist corpo) ✅ |
+| Altura no mobile (390px) | 9.917px | **9.958px** ✅ *(estável, com FAQ e depoimento a mais)* |
+| Altura no desktop (1440px) | 6.569px | **6.941px** |
+| Links na navbar | 5 | **5** *(fusão devolveu o espaço que o FAQ ocupou)* |
+
+## Bloqueadores de deploy
+
+1. 🔴 **Formulários não enviam** — ver [Pendências](#-os-formulários-não-enviam-nada)
+2. 🔴 **Depoimento fictício** em `src/components/Testimonial.tsx` — "Quintal da Tia
+   Sandra", Sandra Nogueira e os números `+38%` / `4 meses` foram **inventados** para
+   visualizar o layout. Publicar como está atribui a um estabelecimento e a uma pessoa
+   uma declaração que nunca deram. Substitua por depoimento real e autorizado, ou remova
+   `<Testimonial />` de `src/app/page.tsx`. O arquivo exporta `IS_PLACEHOLDER = true`.
+3. 🟠 **3 respostas do FAQ** marcadas com `needsReview` descrevem política comercial não
+   documentada (fidelidade, equipamento, fluxo do CPF no caixa)
 
 ---
 
@@ -46,13 +59,33 @@ independentes entre si; o 5 mexe em estrutura e é melhor fazer depois deles.
 | 2 | [Preencher o card do painel](#2-preencher-o-card-painel-de-gestão-completo) | 🔴 Alto | Médio | ✅ **Feito** |
 | 3 | [Gradiente só no hero + cortar eyebrows](#3-gastar-menos-o-gradiente-e-cortar-os-eyebrows-redundantes) | 🟠 Médio | Baixo | ✅ **Feito** |
 | 4 | [Adicionar FAQ](#4-adicionar-uma-seção-de-faq) | 🔴 Alto | Médio | ✅ **Feito** ⚠️ copy a revisar |
-| 5 | [Fundir About + ForTheBar](#5-fundir-about--forthebar) | 🟠 Médio | Alto | ⬜ Pendente |
+| 5 | [Fundir About + ForTheBar](#5-fundir-about--forthebar) | 🟠 Médio | Alto | ✅ **Feito** |
 | 6 | [Hierarquia de materiais nos cards](#6-criar-hierarquia-de-materiais-nos-cards) | 🟠 Médio | Médio | ✅ **Feito** |
-| 7 | [Acento quente + tipografia](#7-acento-quente-e-revisão-de-tipografia) | 🟡 | Alto | ⬜ Precisa da sua decisão |
-| 8 | [Prova social](#8-prova-social-quando-houver-material) | 🔴 Alto | — | 🚫 Bloqueado por conteúdo |
+| 7 | [Acento quente + tipografia](#7-acento-quente-e-revisão-de-tipografia) | 🟡 | Alto | ✅ **Feito** |
+| 8 | [Prova social](#8-prova-social-quando-houver-material) | 🔴 Alto | — | ⚠️ **Fictícia** — trocar antes do deploy |
 
-**Próximo passo mais valioso:** revisar a copy do FAQ (3 respostas foram inferidas) e depois o
-item 5, que é o que traz a altura da página de volta para baixo.
+**Próximo passo mais valioso:** conseguir um depoimento real e revisar a copy do FAQ. As duas
+pendências restantes são de conteúdo, não de código.
+
+### Decisões tomadas no item 7
+
+- **Display:** Bricolage Grotesque (600/800). Grotesca editorial de formas levemente
+  irregulares — sai do sans geométrico que todo dashboard usa e aguenta peso alto. Aplicada
+  via CSS base só em `h1`, `h2` e `.font-display`; `h3` e interface seguem em Geist, que é
+  mais legível em corpo pequeno.
+- **Acento quente:** `--color-ember` (`#F97316`), reservado a **um único significado** —
+  calor de público. Aparece no pico das 22h no gráfico, no card "Lotação ao vivo" e nos
+  selos "Bombando"/"Lotado" do mockup. Não é usado como decoração em nenhum outro lugar.
+  Contraste: 7.17:1 no fundo, 6.86:1 sobre glass.
+
+### O que a fusão do item 5 cortou
+
+- Card "Visibilidade real" (About) fundido com "Visibilidade para quem decide" (ForTheBar)
+- Card "Dados dos clientes" (About) absorvido pelo "Painel de gestão completo"
+- Os 3 bullets do radar, que repetiam literalmente os cards da própria seção
+- A visualização de radar — a headline dela, *"Não é anúncio. É presença no momento certo."*,
+  virou o `h2` da seção unificada, que é onde ela rende mais
+- A âncora `#para-o-bar` deixou de existir; `#sobre` foi mantida
 
 ---
 

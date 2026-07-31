@@ -1,16 +1,8 @@
-import {
-  Info,
-  Store,
-  Gift,
-  CreditCard,
-  CircleHelp,
-  MessageCircle,
-} from "lucide-react";
+import { Info, Gift, CreditCard, CircleHelp, MessageCircle } from "lucide-react";
 
 /** Single source of truth for the landing page's in-page sections. */
 export const SECTIONS = [
   { label: "O que é", href: "#sobre", icon: Info },
-  { label: "Para o bar", href: "#para-o-bar", icon: Store },
   { label: "Pontos", href: "#pontos", icon: Gift },
   { label: "Preços", href: "#precos", icon: CreditCard },
   { label: "Dúvidas", href: "#faq", icon: CircleHelp },
