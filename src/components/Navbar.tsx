@@ -116,7 +116,7 @@ export default function Navbar() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className={`w-full flex items-center justify-between transition-all duration-500 ease-out ${
             scrolled
-              ? "max-w-4xl rounded-full border border-white/10 bg-navy/75 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.45)] px-4 py-2"
+              ? "max-w-5xl rounded-full border border-white/10 bg-navy/75 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.45)] px-4 py-2"
               : "max-w-7xl mx-auto rounded-none border border-transparent bg-transparent px-6 py-5"
           }`}
         >
@@ -143,7 +143,7 @@ export default function Navbar() {
           </motion.button>
 
           {/* Desktop links with sliding active pill */}
-          <nav className="hidden md:flex items-center gap-1 mx-4">
+          <nav className="hidden lg:flex items-center gap-1 mx-4">
             {links.map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
@@ -151,7 +151,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "true" : undefined}
-                  className="relative px-4 py-2 text-sm font-medium cursor-pointer"
+                  className="relative px-3 py-2 text-sm font-medium cursor-pointer whitespace-nowrap"
                 >
                   {isActive && (
                     <motion.span
@@ -178,7 +178,7 @@ export default function Navbar() {
               href="/login"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="hidden md:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200"
+              className="hidden lg:flex items-center gap-2 text-lavender hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200"
             >
               Entrar
             </MotionLink>
@@ -186,7 +186,7 @@ export default function Navbar() {
               href="/register"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="hidden md:flex items-center gap-2 bg-purple hover:bg-purple-light text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 btn-shimmer glow-purple-sm"
+              className="hidden lg:flex items-center gap-2 bg-purple hover:bg-purple-light text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 btn-shimmer glow-purple-sm"
             >
               Cadastrar grátis
             </MotionLink>
@@ -196,7 +196,7 @@ export default function Navbar() {
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-lavender hover:text-white hover:bg-white/5 transition-colors"
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-full text-lavender hover:text-white hover:bg-white/5 transition-colors"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -217,7 +217,7 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden cursor-default"
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden cursor-default"
             />
 
             {/* Dropdown panel, docked below the floating nav */}
@@ -231,7 +231,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.96 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className={`fixed z-50 inset-x-4 md:hidden origin-top rounded-3xl border border-white/10 bg-navy/95 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-3 transition-[top] duration-500 ease-out ${
+              className={`fixed z-50 inset-x-4 lg:hidden origin-top rounded-3xl border border-white/10 bg-navy/95 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-3 transition-[top] duration-500 ease-out ${
                 scrolled ? "top-16" : "top-20"
               }`}
             >

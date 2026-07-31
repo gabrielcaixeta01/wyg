@@ -94,8 +94,8 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 lg:pt-28 pb-8 lg:pb-16 w-full">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
           {/* ── Left: Copy ── */}
           <div className="flex flex-col items-start">
@@ -115,7 +115,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               custom={2}
-              className="text-lavender text-lg sm:text-xl leading-relaxed mb-10 max-w-lg"
+              className="text-lavender text-lg sm:text-xl leading-relaxed mb-6 lg:mb-10 max-w-lg"
             >
               A WYG mostra seu bar em{" "}
               <strong className="text-white">tempo real</strong> para pessoas que estão
@@ -129,7 +129,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               custom={3}
-              className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-3 lg:gap-4 mb-0 lg:mb-8 w-full sm:w-auto"
             >
               <MotionLink
                 href="/register"
@@ -153,10 +153,10 @@ export default function Hero() {
 
           {/* ── Right: iPhone Mockup ── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" as const, delay: 0.3 }}
-            className="relative hidden lg:flex flex-col items-center justify-center"
+            className="relative flex flex-col items-center justify-center"
           >
             {/* Glow behind phone */}
             <div
@@ -164,8 +164,13 @@ export default function Hero() {
               style={{ background: "rgba(16,64,200,0.18)" }}
             />
 
-            {/* Phone frame + buttons wrapper */}
-            <div className="relative">
+            {/* Crop window. On mobile the phone runs past the fold and fades out
+                rather than shrinking to an unreadable size — the map and the first
+                live-occupancy rows stay legible, which is the whole point of it.
+                `px-3` keeps the side buttons clear of the clipping edge. */}
+            <div className="relative w-full flex justify-center px-3 h-105 lg:h-auto overflow-hidden lg:overflow-visible mask-[linear-gradient(to_bottom,black_76%,transparent)] lg:mask-none">
+              {/* Phone frame + buttons wrapper */}
+              <div className="relative">
 
               {/* Silent switch */}
               <div className="absolute -left-1.25 top-27 w-1.25 h-7 rounded-l-sm"
@@ -389,10 +394,8 @@ export default function Hero() {
 
                 </div>
               </div>
-            </div>{/* /phone frame */}
-
-            
-
+              </div>{/* /phone frame */}
+            </div>{/* /crop window */}
           </motion.div>
         </div>
       </div>

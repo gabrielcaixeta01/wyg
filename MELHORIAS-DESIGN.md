@@ -19,34 +19,40 @@ independentes entre si; o 5 mexe em estrutura e é melhor fazer depois deles.
 > SaaS genérico, não um produto de vida noturna. E o ativo mais forte da página está escondido
 > justamente de quem mais vai vê-la.
 
-Medições da página no estado atual:
+> **Status em 31/07/2026:** itens 1, 2, 3, 4 e 6 aplicados e verificados. Restam o 5
+> (fusão de seções), o 7 (identidade) e o 8 (prova social, bloqueado por conteúdo).
 
-| métrica | valor |
-|---|---|
-| Altura no mobile (390px) | **9.917px — 11,8 telas** |
-| Altura no desktop (1440px) | 6.569px — 7,3 telas |
-| Aplicações de `gradient-text` na landing | **6** |
-| Elementos `glass-card` / `glass-card-purple` | **30** |
-| `padding-top` das seções | 112px em **todas** (`py-28`) |
-| CTAs para `/register` na página inteira | **3** |
-| Provas sociais (logo, depoimento, número real) | **0** |
+| métrica | antes | agora |
+|---|---|---|
+| Aplicações de `gradient-text` | 6 | **1** ✅ |
+| Eyebrows redundantes | 5 | **1** ✅ |
+| `glass-card` / `glass-card-purple` | 30 | **18** ✅ |
+| Superfícies de destaque (`border-gradient`) | 5 | **3** ✅ |
+| Mockup do app visível no mobile | ❌ | **✅** |
+| Card do painel preenchido | ❌ | **✅** |
+| Seção de FAQ | ❌ | **✅ 8 perguntas** |
+| Altura no mobile (390px) | 9.917px | 11.028px ⚠️ *(o FAQ acrescentou ~1.100px; o item 5 é o que reduz)* |
+| Altura no desktop (1440px) | 6.569px | 7.386px ⚠️ |
+| CTAs para `/register` na página | 3 | 3 |
+| Provas sociais | 0 | 0 ⚠️ |
 
 ---
 
 ## Ordem sugerida
 
-| # | Item | Impacto | Esforço | Tipo |
+| # | Item | Impacto | Esforço | Status |
 |---|---|---|---|---|
-| 1 | [Mockup visível no mobile](#1-mockup-do-app-visível-no-mobile) | 🔴 Alto | Médio | Design |
-| 2 | [Preencher o card do painel](#2-preencher-o-card-painel-de-gestão-completo) | 🔴 Alto | Médio | Design |
-| 3 | [Gradiente só no hero + cortar eyebrows](#3-gastar-menos-o-gradiente-e-cortar-os-eyebrows-redundantes) | 🟠 Médio | **Baixo** | Design |
-| 4 | [Adicionar FAQ](#4-adicionar-uma-seção-de-faq) | 🔴 Alto | Médio | Conteúdo |
-| 5 | [Fundir About + ForTheBar](#5-fundir-about--forthebar) | 🟠 Médio | Alto | Estrutura |
-| 6 | [Hierarquia de materiais nos cards](#6-criar-hierarquia-de-materiais-nos-cards) | 🟠 Médio | Médio | Design |
-| 7 | [Acento quente + tipografia](#7-acento-quente-e-revisão-de-tipografia) | 🟡 Alto se der certo | Alto | Identidade |
-| — | [Prova social](#8-prova-social-quando-houver-material) | 🔴 Alto | Bloqueado | Conteúdo |
+| 1 | [Mockup visível no mobile](#1-mockup-do-app-visível-no-mobile) | 🔴 Alto | Médio | ✅ **Feito** |
+| 2 | [Preencher o card do painel](#2-preencher-o-card-painel-de-gestão-completo) | 🔴 Alto | Médio | ✅ **Feito** |
+| 3 | [Gradiente só no hero + cortar eyebrows](#3-gastar-menos-o-gradiente-e-cortar-os-eyebrows-redundantes) | 🟠 Médio | Baixo | ✅ **Feito** |
+| 4 | [Adicionar FAQ](#4-adicionar-uma-seção-de-faq) | 🔴 Alto | Médio | ✅ **Feito** ⚠️ copy a revisar |
+| 5 | [Fundir About + ForTheBar](#5-fundir-about--forthebar) | 🟠 Médio | Alto | ⬜ Pendente |
+| 6 | [Hierarquia de materiais nos cards](#6-criar-hierarquia-de-materiais-nos-cards) | 🟠 Médio | Médio | ✅ **Feito** |
+| 7 | [Acento quente + tipografia](#7-acento-quente-e-revisão-de-tipografia) | 🟡 | Alto | ⬜ Precisa da sua decisão |
+| 8 | [Prova social](#8-prova-social-quando-houver-material) | 🔴 Alto | — | 🚫 Bloqueado por conteúdo |
 
-**Se você só fizer três coisas:** 1, 3 e 4.
+**Próximo passo mais valioso:** revisar a copy do FAQ (3 respostas foram inferidas) e depois o
+item 5, que é o que traz a altura da página de volta para baixo.
 
 ---
 
@@ -400,12 +406,17 @@ silêncio**.
 Solução mínima enquanto não há backend: Server Action + webhook (Formspree, Resend) com estado
 de `loading` e `error`. Resolve em pouco tempo.
 
-### 🟡 Copy inconsistente no sistema de pontos
+### ✅ Copy inconsistente no sistema de pontos — resolvido
 
-`src/components/PointsSystem.tsx:148-154` — *"R$120 consumido → 12.000 pontos (10%)"*.
+Era *"R$120 consumido → 12.000 pontos (10%)"*. 10% de 120 é 12, não 12.000 — o rótulo criava uma
+conta que não fecha.
 
-10% de 120 é 12, não 12.000. Imagino que a regra seja 100 pontos por real, mas o "(10%)" ao lado
-de "12.000" não fecha para quem lê. Vale explicitar a taxa de conversão.
+**Resolvido removendo o "(10%)"**: o exemplo agora lê *"R$120 consumido → 12.000 pontos"*, sem
+aritmética contraditória. A tabela de conversão logo acima segue mostrando os percentuais por
+faixa (5%, 7,5%, 10%, 12%), que é onde eles fazem sentido.
+
+Se quiser deixar a regra explícita no futuro, o texto natural seria informar quantos pontos vale
+cada real (ex.: *"100 pontos por real"*).
 
 ### 🟢 Sem testes no repositório
 
@@ -425,5 +436,10 @@ Garantias já implementadas. Ao mexer no design, manter:
 - **SEO** — canonical por página, títulos únicos, 1 `<h1>` por página, `/login` noindex
 - **Navegação client-side** — CTAs internos usam `<Link>`/`MotionLink`, não `<a>`
 - **Fonte única de navegação** — `src/lib/nav.ts` alimenta navbar e footer
+- **Navbar cabe em todas as larguras** — com 6 links, o menu desktop passou a aparecer só a
+  partir de `lg` (1024px); abaixo disso é o hambúrguer. Se acrescentar um 7º link, reteste as
+  faixas 768–1024px antes de commitar
+- **Copy do FAQ marcada com `needsReview`** em `src/components/Faq.tsx` — três respostas
+  descrevem política comercial que ainda não está documentada
 
 Antes de commitar: `npm run typecheck && npm run lint && npm run build`.

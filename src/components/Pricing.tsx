@@ -23,14 +23,6 @@ export default function Pricing() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="inline-block glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5"
-          >
-            Modelo de cobrança
-          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -39,7 +31,7 @@ export default function Pricing() {
           >
             Simples, transparente
             <br />
-            <span className="gradient-text">e ligado ao resultado</span>
+            e ligado ao resultado
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -64,7 +56,9 @@ export default function Pricing() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="glass-card rounded-2xl p-6 mb-5">
+              {/* Plain blocks separated by a hairline: this card is already the
+                  highlighted surface, so nesting cards inside it flattens it. */}
+              <div className="pb-6">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-muted text-xs uppercase tracking-widest">Primeiros 3 meses</p>
                   <span className="bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-bold px-3 py-1 rounded-full">Grátis</span>
@@ -76,7 +70,7 @@ export default function Pricing() {
                 </p>
               </div>
 
-              <div className="glass-card rounded-2xl p-6 mb-6">
+              <div className="py-6 border-t border-white/10">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-muted text-xs uppercase tracking-widest">A partir do mês 4</p>
                   <span className="glass-card-purple text-purple-light text-xs font-bold px-3 py-1 rounded-full border border-purple/30">Comissão</span>
@@ -88,7 +82,7 @@ export default function Pricing() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-3 mb-2 glass-card rounded-xl p-4">
+              <div className="flex items-start gap-3 pt-6 border-t border-white/10">
                 <Info size={15} className="text-purple-light shrink-0 mt-0.5" />
                 <p className="text-lavender text-xs leading-relaxed">
                   A cobrança está diretamente ligada ao que é registrado no painel via CPF.
@@ -106,7 +100,9 @@ export default function Pricing() {
             transition={{ duration: 0.7, delay: 0.35 }}
             className="flex flex-col gap-5"
           >
-            <div className="glass-card rounded-2xl p-6">
+            {/* Discreet level: plain text on the background, so the price card
+                stays the only highlighted surface in this section. */}
+            <div className="px-1">
               <p className="text-white font-bold text-base mb-5">Sempre incluso, sem custo adicional</p>
               <div className="flex flex-col gap-3">
                 {INCLUDED.map((item) => (
@@ -118,7 +114,7 @@ export default function Pricing() {
               </div>
             </div>
 
-            <div className="glass-card rounded-2xl p-6">
+            <div className="px-1 pt-7 border-t border-white/8">
               <p className="text-white font-bold text-base mb-5">Como funciona na prática</p>
               <div className="flex flex-col gap-4">
                 {[

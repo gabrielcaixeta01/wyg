@@ -5,7 +5,18 @@ import { motion, useInView } from "framer-motion";
 import { BarChart2, Gift, Eye, Star } from "lucide-react";
 import { MotionLink } from "./MotionLink";
 
-const PANEL_STATS = ["Horário de pico", "Ticket médio", "Bairro de origem"];
+const PANEL_STATS = ["Ticket médio", "Bairro de origem", "Faixa etária"];
+
+/** Illustrative movement curve for the panel preview — labelled "Exemplo" in the UI. */
+const PEAK_HOURS = [
+  { hour: "18h", pct: 20 },
+  { hour: "19h", pct: 36 },
+  { hour: "20h", pct: 58 },
+  { hour: "21h", pct: 82 },
+  { hour: "22h", pct: 100 },
+  { hour: "23h", pct: 74 },
+  { hour: "00h", pct: 41 },
+];
 
 const SIDE_BENEFITS = [
   {
@@ -40,15 +51,6 @@ export default function ForTheBar() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="inline-block glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5"
-          >
-            Para o seu bar
-          </motion.span>
-
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -57,7 +59,7 @@ export default function ForTheBar() {
           >
             O que a WYG entrega
             <br />
-            <span className="gradient-text">para o seu bar</span>
+            para o seu bar
           </motion.h2>
 
           <motion.p
@@ -77,7 +79,7 @@ export default function ForTheBar() {
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: "easeOut" as const }}
-            className="relative glass-card rounded-2xl p-7 sm:p-8 card-hover group overflow-hidden sm:col-span-2 lg:col-span-2 lg:row-span-2 flex flex-col justify-between"
+            className="relative glass-card border-gradient rounded-2xl p-7 sm:p-8 card-hover group overflow-hidden sm:col-span-2 lg:col-span-2 lg:row-span-2 flex flex-col justify-between"
           >
             <div className="absolute inset-0 bg-linear-to-br from-purple/30 to-purple/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
@@ -100,15 +102,61 @@ export default function ForTheBar() {
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-wrap gap-2 mt-8">
-              {PANEL_STATS.map((stat) => (
-                <span
-                  key={stat}
-                  className="text-xs text-white/70 bg-white/5 border border-white/10 rounded-full px-3 py-1.5"
-                >
-                  {stat}
-                </span>
-              ))}
+            {/* Panel preview: the card promises a dashboard, so it shows one. */}
+            <div className="relative z-10 mt-8">
+              <div className="rounded-xl border border-white/8 bg-black/25 p-5">
+                <div className="flex items-baseline justify-between mb-4">
+                  <p className="text-white text-sm font-semibold">Horário de pico</p>
+                  <span className="text-muted text-[10px] font-semibold uppercase tracking-wider">
+                    Exemplo
+                  </span>
+                </div>
+
+                <div className="flex items-end gap-1.5 h-28">
+                  {PEAK_HOURS.map((slot, i) => {
+                    const isPeak = slot.pct === 100;
+                    return (
+                      <div
+                        key={slot.hour}
+                        className="flex-1 h-full flex flex-col justify-end items-center gap-2"
+                      >
+                        <div className="w-full flex-1 flex items-end">
+                          <motion.div
+                            className={`w-full rounded-t-sm ${
+                              isPeak ? "bg-purple-light" : "bg-purple/45"
+                            }`}
+                            initial={{ height: 0 }}
+                            animate={inView ? { height: `${slot.pct}%` } : { height: 0 }}
+                            transition={{
+                              duration: 0.7,
+                              delay: 0.3 + i * 0.06,
+                              ease: "easeOut",
+                            }}
+                          />
+                        </div>
+                        <span
+                          className={`text-[10px] ${
+                            isPeak ? "text-purple-light font-bold" : "text-muted"
+                          }`}
+                        >
+                          {slot.hour}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mt-4">
+                {PANEL_STATS.map((stat) => (
+                  <span
+                    key={stat}
+                    className="text-xs text-white/70 bg-white/5 border border-white/10 rounded-full px-3 py-1.5"
+                  >
+                    {stat}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
 

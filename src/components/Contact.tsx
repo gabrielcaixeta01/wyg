@@ -18,14 +18,6 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-2xl mx-auto px-6">
         <div className="text-center mb-14">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="inline-block glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5"
-          >
-            Contato
-          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -34,7 +26,7 @@ export default function Contact() {
           >
             Fale com a
             <br />
-            <span className="gradient-text">equipe WYG.</span>
+            equipe WYG.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -50,7 +42,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.25 }}
-          className="glass-card rounded-3xl p-8 border-gradient flex flex-col gap-3"
+          className="flex flex-col gap-3"
         >
           <a
             href="mailto:contato@wyg.com.br"

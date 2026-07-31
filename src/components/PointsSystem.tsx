@@ -60,8 +60,7 @@ export default function PointsSystem() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-4xl sm:text-5xl font-black leading-tight tracking-tight mb-4"
             >
-              Clientes que gastam mais,{" "}
-              <span className="gradient-text">voltam mais.</span>
+              Clientes que gastam mais, voltam mais.
             </motion.h2>
 
             <motion.p
@@ -104,7 +103,7 @@ export default function PointsSystem() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="glass-card rounded-2xl p-6 border-gradient"
+              className="glass-card rounded-2xl p-6"
             >
               <p className="text-white font-bold text-sm mb-1">Conversão de pontos</p>
               <p className="text-muted text-xs mb-4">Maior consumo = maior percentual</p>
@@ -138,20 +137,20 @@ export default function PointsSystem() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.45 }}
-              className="glass-card-purple rounded-2xl p-6 border-gradient relative overflow-hidden"
+              className="glass-card-purple rounded-2xl p-6 relative overflow-hidden"
             >
               <div className="absolute right-0 top-0 w-40 h-40 bg-purple/20 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10">
                 <p className="text-purple-light text-xs font-bold uppercase tracking-widest mb-3">Exemplo</p>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="glass-card rounded-xl px-4 py-2.5 text-center">
+                  <div className="bg-black/25 border border-white/10 rounded-xl px-4 py-2.5 text-center">
                     <p className="text-white font-black text-xl">R$120</p>
                     <p className="text-muted text-xs">consumido</p>
                   </div>
                   <span className="text-lavender text-lg">→</span>
-                  <div className="glass-card rounded-xl px-4 py-2.5 text-center">
+                  <div className="bg-black/25 border border-white/10 rounded-xl px-4 py-2.5 text-center">
                     <p className="text-white font-black text-xl">12.000</p>
-                    <p className="text-muted text-xs">pontos (10%)</p>
+                    <p className="text-muted text-xs">pontos</p>
                   </div>
                 </div>
                 <p className="text-lavender text-sm leading-relaxed">

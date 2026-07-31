@@ -37,17 +37,6 @@ export default function About() {
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-purple/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          variants={fadeUp(0)}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="flex justify-center mb-5"
-        >
-          <span className="glass-card-purple text-purple-light text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full">
-            O que é a WYG
-          </span>
-        </motion.div>
-
         <motion.h2
           variants={fadeUp(0.1)}
           initial="hidden"
@@ -104,8 +93,7 @@ export default function About() {
               <h3 className="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight">
                 Não é anúncio.
                 <br />
-                É presença no{" "}
-                <span className="gradient-text">momento certo.</span>
+                É presença no momento certo.
               </h3>
               <p className="text-lavender leading-relaxed mb-6">
                 A WYG só aparece para pessoas{" "}

@@ -5,6 +5,7 @@ import About from "@/components/About";
 import ForTheBar from "@/components/ForTheBar";
 import PointsSystem from "@/components/PointsSystem";
 import Pricing from "@/components/Pricing";
+import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -22,6 +23,7 @@ export default function Home() {
         <ForTheBar />
         <PointsSystem />
         <Pricing />
+        <Faq />
         <Contact />
       </main>
       <Footer />
