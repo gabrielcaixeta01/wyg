@@ -45,6 +45,21 @@ Abra [http://localhost:3000](http://localhost:3000) para visualizar a landing.
 - [src/components/Pricing.tsx](src/components/Pricing.tsx) detalha o modelo comercial.
 - [src/components/Contact.tsx](src/components/Contact.tsx) concentra a conversão.
 
+## Scripts
+
+```bash
+npm run dev        # ambiente de desenvolvimento
+npm run build      # build de produção
+npm run lint       # ESLint
+npm run typecheck  # TypeScript sem emitir arquivos
+```
+
+## Próximos passos
+
+[MELHORIAS-DESIGN.md](MELHORIAS-DESIGN.md) reúne o backlog de design e conteúdo levantado na
+auditoria visual, com instruções por item. Inclui também a pendência que bloqueia o deploy: os
+formulários de login e cadastro ainda não enviam dados.
+
 ## Contato
 
 - Site: WYG
